@@ -3,7 +3,7 @@ layout: post
 title: "Selfmade Postcard Designs"
 date: 2020-08-31
 ---
-When other's design dont work, we make our own.
+When other designs dont work, I make my own.
  <p float="left">
   <img src="https://raw.githubusercontent.com/ajinkyagorad/ajinkyagorad.github.io/master/img/postcard1.jpg" width="240" />
   <img src="https://raw.githubusercontent.com/ajinkyagorad/ajinkyagorad.github.io/master/img/postcard2.jpg" width="240" /> 
