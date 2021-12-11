@@ -1,5 +1,6 @@
 # ajinkyagorad.github.io
-## Development Repository for my home page, just started
+## Development Repository for my home page
+
 
 
 PS. adding emojis to github is as easy as clicking [here](http://www.emoji-cheat-sheet.com/)
