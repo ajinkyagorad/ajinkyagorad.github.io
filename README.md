@@ -1,5 +1,5 @@
 # ajinkyagorad.github.io
-## Development Repository for my home page, just started
+## Development Repository for my git page (outdated)
 
 
 
