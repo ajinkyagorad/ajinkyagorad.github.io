@@ -1,7 +1,61 @@
----
-layout: default
-title: Homepage
----
-<div class="blurb">
-	Elemental &#1F525;
-</div><!-- /.blurb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ajinkya Gorad</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const pages = {
+      home: () => (
+        <div className="blurb">
+          <h1>Elemental 🔥</h1>
+        </div>
+      ),
+      about: () => (
+        <div className="about">
+          <h1>About</h1>
+          <p>To post stuff that people might care about.</p>
+          <ul className="contacts">
+            <li><a href="https://twitter.com/AjinkyaGorad">Twitter</a></li>
+          </ul>
+        </div>
+      ),
+      blog: () => (
+        <div className="blog">
+          <h1>Blog</h1>
+          <p>Blog coming soon.</p>
+        </div>
+      )
+    };
+
+    function App() {
+      const [page, setPage] = React.useState('home');
+      const PageComponent = pages[page];
+      return (
+        <div className="container">
+          <nav>
+            <button onClick={() => setPage('home')}>Home</button>
+            <button onClick={() => setPage('about')}>About</button>
+            <button onClick={() => setPage('blog')}>Blog</button>
+          </nav>
+          <PageComponent />
+          <footer>
+            <button onClick={() => window.location='mailto:ajinkyagorad@gmail.com'}>Mail Me</button>
+            <button onClick={() => window.open('https://github.com/ajinkyagorad','_blank')}>Github</button>
+            <button onClick={() => window.open('https://twitter.com/ajinkya_gorad','_blank')}>Twitter</button>
+            <button onClick={() => window.open('https://www.linkedin.com/in/ajinkyagorad','_blank')}>LinkedIn</button>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
