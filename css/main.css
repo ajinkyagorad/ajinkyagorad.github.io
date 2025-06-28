@@ -28,7 +28,7 @@ nav {
   margin-bottom: 40px;
   display: flex;
   justify-content: center;
-  opacity: 0;
+  opacity: 1;
 }
 
 nav button {
@@ -51,7 +51,7 @@ footer {
   margin-top: 60px;
   display: flex;
   justify-content: center;
-  opacity: 0;
+  opacity: 1;
 }
 
 footer button {
