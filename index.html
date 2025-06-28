@@ -9,6 +9,7 @@
   <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
 <body>
   <canvas id="starfield"></canvas>
@@ -140,6 +141,10 @@
   <script type="module">
     import { startStarfield } from './js/starfield.js';
     startStarfield(document.getElementById('starfield'));
+  </script>
+  <script type="module">
+    import { startP5Background } from './js/p5background.js';
+    startP5Background();
   </script>
 </body>
 </html>
