@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Ajinkya Gorad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
@@ -40,19 +41,39 @@
         React.useEffect(() => {
           fetch('https://api.github.com/users/ajinkyagorad/repos')
             .then(r => r.json())
-            .then(setRepos)
+            .then(async repos => {
+              const detailed = await Promise.all(
+                repos.map(async repo => {
+                  try {
+                    const langResp = await fetch(repo.languages_url);
+                    const langData = await langResp.json();
+                    repo.languages = Object.keys(langData).join(', ');
+                  } catch (e) {
+                    repo.languages = repo.language || '';
+                  }
+                  repo.image = `https://opengraph.githubassets.com/1/${repo.full_name}`;
+                  return repo;
+                })
+              );
+              setRepos(detailed);
+            })
             .catch(() => {});
         }, []);
+
         return (
           <div className="projects">
             {repos.map(repo => (
               <div className="project-card" key={repo.id}>
+                <img src={repo.image} alt={repo.name} />
                 <h3>
                   <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
                     {repo.name}
                   </a>
                 </h3>
                 <p>{repo.description}</p>
+                {repo.languages && (
+                  <p className="languages">Languages: {repo.languages}</p>
+                )}
               </div>
             ))}
           </div>
