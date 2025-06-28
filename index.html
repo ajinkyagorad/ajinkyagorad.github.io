@@ -10,29 +10,73 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="text/babel">
-    const pages = {
-      home: () => (
-        <div className="blurb">
-          <h1>Elemental 🔥</h1>
-        </div>
-      ),
-      about: () => (
-        <div className="about">
-          <h1>About</h1>
-          <p>To post stuff that people might care about.</p>
-          <ul className="contacts">
-            <li><a href="https://twitter.com/AjinkyaGorad">Twitter</a></li>
-          </ul>
-        </div>
-      ),
-      blog: () => (
-        <div className="blog">
-          <h1>Blog</h1>
-          <p>Blog coming soon.</p>
-        </div>
-      )
-    };
+    <script type="text/babel">
+      function BlogPage() {
+        const [posts, setPosts] = React.useState([]);
+        React.useEffect(() => {
+          fetch('blog/posts.json')
+            .then(r => r.json())
+            .then(setPosts)
+            .catch(() => {});
+        }, []);
+        return (
+          <div className="blog">
+            <h1>Blog</h1>
+            <div className="blog-list">
+              {posts.map(post => (
+                <div className="post-item" key={post.url}>
+                  <h3><a href={post.url}>{post.title}</a></h3>
+                  <small>{post.date}</small>
+                  <p>{post.excerpt}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      function ProjectsPage() {
+        const [repos, setRepos] = React.useState([]);
+        React.useEffect(() => {
+          fetch('https://api.github.com/users/ajinkyagorad/repos')
+            .then(r => r.json())
+            .then(setRepos)
+            .catch(() => {});
+        }, []);
+        return (
+          <div className="projects">
+            {repos.map(repo => (
+              <div className="project-card" key={repo.id}>
+                <h3>
+                  <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+                    {repo.name}
+                  </a>
+                </h3>
+                <p>{repo.description}</p>
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      const pages = {
+        home: () => (
+          <div className="blurb">
+            <h1>Elemental 🔥</h1>
+          </div>
+        ),
+        about: () => (
+          <div className="about">
+            <h1>About</h1>
+            <p>To post stuff that people might care about.</p>
+            <ul className="contacts">
+              <li><a href="https://twitter.com/AjinkyaGorad">Twitter</a></li>
+            </ul>
+          </div>
+        ),
+        blog: BlogPage,
+        projects: ProjectsPage
+      };
 
     function App() {
       const [page, setPage] = React.useState('home');
@@ -43,6 +87,7 @@
             <button onClick={() => setPage('home')}>Home</button>
             <button onClick={() => setPage('about')}>About</button>
             <button onClick={() => setPage('blog')}>Blog</button>
+            <button onClick={() => setPage('projects')}>Projects</button>
           </nav>
           <PageComponent />
           <footer>
