@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
   font-weight: 300;
   background-color: #ffffff;
   color: #333333;
@@ -92,8 +92,22 @@ a:hover {
   width: 260px;
   text-align: left;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #f8f8ff;
 }
 
 .project-card h3 {
   margin-top: 0;
+}
+
+.project-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.project-card .languages {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 5px;
 }
