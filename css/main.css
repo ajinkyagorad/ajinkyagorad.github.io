@@ -1,5 +1,12 @@
-body {
+html, body {
+  height: 100%;
   margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
   background-color: #ffffff;
@@ -8,14 +15,25 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  flex: 1;
+  max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
   text-align: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 10px;
+  }
+  nav button {
+    padding: 8px 12px;
+  }
 }
 
 nav {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 nav button {
@@ -34,7 +52,9 @@ footer button:hover {
 }
 
 footer {
-  margin-top: 60px;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto;
 }
 
 footer button {
@@ -63,35 +83,40 @@ a:hover {
 
 .blog-list {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
 }
 
 .post-item {
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 600px;
+  width: 280px;
   text-align: left;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
 .projects {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
 }
 
 .project-card {
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 20px;
-  margin: 10px;
   width: 260px;
   text-align: left;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
 .project-card h3 {

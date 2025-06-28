@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ajinkya Gorad</title>
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
@@ -10,9 +11,10 @@
 </head>
 <body>
   <div id="root"></div>
-    <script type="text/babel">
+    <script type="text/babel" data-type="module" data-presets="react,typescript">
+      type Post = { title: string; date: string; url: string; excerpt: string };
       function BlogPage() {
-        const [posts, setPosts] = React.useState([]);
+        const [posts, setPosts] = React.useState<Post[]>([]);
         React.useEffect(() => {
           fetch('blog/posts.json')
             .then(r => r.json())
@@ -35,8 +37,9 @@
         );
       }
 
+      type Repo = { id: number; name: string; description: string; html_url: string };
       function ProjectsPage() {
-        const [repos, setRepos] = React.useState([]);
+        const [repos, setRepos] = React.useState<Repo[]>([]);
         React.useEffect(() => {
           fetch('https://api.github.com/users/ajinkyagorad/repos')
             .then(r => r.json())
