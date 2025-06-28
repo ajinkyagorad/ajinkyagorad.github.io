@@ -1,9 +1,55 @@
 ---
-layout: default
+layout: none
 ---
-  <h1>{{ page.title }}</h1>
-  <p class="meta">{{ page.date | date_to_string }}</p>
-  
-  <div class="post">
-    {{ content }}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="nav-root"></div>
+  <div class="container">
+    <h1>{{ page.title }}</h1>
+    <p class="meta">{{ page.date | date_to_string }}</p>
+    <div class="post">{{ content }}</div>
   </div>
+  <div id="footer-root"></div>
+  <script type="text/babel">
+    function FadeIn({ children }) {
+      const [show, setShow] = React.useState(false);
+      React.useEffect(() => setShow(true), []);
+      return <div className={show ? 'fade-in' : 'hidden'}>{children}</div>;
+    }
+
+    function Nav() {
+      return (
+        <nav>
+          <button onClick={() => window.location='/'}>Home</button>
+          <button onClick={() => window.location='/about'}>About</button>
+          <button onClick={() => window.location='/blog'}>Blog</button>
+        </nav>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer>
+          <button onClick={() => window.location='mailto:ajinkyagorad@gmail.com'}>Mail Me</button>
+          <button onClick={() => window.open('https://github.com/ajinkyagorad','_blank')}>Github</button>
+          <button onClick={() => window.open('https://twitter.com/ajinkya_gorad','_blank')}>Twitter</button>
+          <button onClick={() => window.open('https://www.linkedin.com/in/ajinkyagorad','_blank')}>LinkedIn</button>
+        </footer>
+      );
+    }
+
+    ReactDOM.render(<FadeIn><Nav /></FadeIn>, document.getElementById('nav-root'));
+    ReactDOM.render(<FadeIn><Footer /></FadeIn>, document.getElementById('footer-root'));
+  </script>
+</body>
+</html>
