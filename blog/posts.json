@@ -1,0 +1,32 @@
+[
+  {
+    "title": "ARM based Oscilloscope",
+    "date": "2016-05-31",
+    "url": "/blog/2016/05/31/arm-oscilloscope",
+    "excerpt": "Building your own oscilloscope for analyzing electronic signals."
+  },
+  {
+    "title": "Up and Running!",
+    "date": "2016-05-31",
+    "url": "/blog/2016/05/31/site-launched",
+    "excerpt": "Launching my blog with GitHub Pages and Jekyll."
+  },
+  {
+    "title": "Tinkerer's Lab, A Fun place to have",
+    "date": "2016-08-19",
+    "url": "/blog/2016/08/19/TL",
+    "excerpt": "Sharing my experience exploring the hands-on Tinkerer's Lab."
+  },
+  {
+    "title": "Art",
+    "date": "2020-08-31",
+    "url": "/blog/2020/08/31/Art",
+    "excerpt": "Thoughts on art as emotional expression across mediums."
+  },
+  {
+    "title": "Selfmade Postcard Designs",
+    "date": "2020-08-31",
+    "url": "/blog/2020/08/31/PostcardDesigns",
+    "excerpt": "Collection of self-designed postcards."
+  }
+]
