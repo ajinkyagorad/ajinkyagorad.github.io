@@ -5,11 +5,13 @@
   <title>Ajinkya Gorad</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-x" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
+  <canvas id="starfield"></canvas>
   <div id="root"></div>
     <script type="text/babel">
       function BlogPage() {
@@ -82,8 +84,20 @@
 
       const pages = {
         home: () => (
-          <div className="blurb">
-            <h1>Elemental 🔥</h1>
+          <div className="home">
+            <h1>Welcome to Ajinkya Gorad's Universe</h1>
+            <p>Explore mechanical designs, software and robotics projects from my GitHub portfolio.</p>
+            <div className="home-links">
+              <a href="https://github.com/ajinkyagorad" target="_blank" rel="noopener">
+                <i className="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://grabcad.com/triton7777-1" target="_blank" rel="noopener">
+                <i className="fas fa-cube"></i> GrabCAD
+              </a>
+              <a href="https://triton7777.wordpress.com/" target="_blank" rel="noopener">
+                <i className="fas fa-pen-nib"></i> Blog
+              </a>
+            </div>
           </div>
         ),
         about: () => (
@@ -122,6 +136,10 @@
     }
 
     ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+  <script type="module">
+    import { startStarfield } from './js/starfield.js';
+    startStarfield(document.getElementById('starfield'));
   </script>
 </body>
 </html>
