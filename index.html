@@ -119,7 +119,7 @@
       const PageComponent = pages[page];
       return (
         <div className="container">
-          <nav>
+          <nav className="fade-in">
             <button onClick={() => setPage('home')}>Home</button>
             <button onClick={() => setPage('about')}>About</button>
             <button onClick={() => setPage('blog')}>Blog</button>
@@ -127,7 +127,7 @@
             <button onClick={() => window.open('webxr-demo/', '_blank')}>WebXR Demo</button>
           </nav>
           <PageComponent />
-          <footer>
+          <footer className="fade-in">
             <button onClick={() => window.location='mailto:ajinkyagorad@gmail.com'}>Mail Me</button>
             <button onClick={() => window.open('https://github.com/ajinkyagorad','_blank')}>Github</button>
             <button onClick={() => window.open('https://twitter.com/ajinkya_gorad','_blank')}>Twitter</button>
