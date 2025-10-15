@@ -130,6 +130,256 @@ a:hover {
   margin-top: 5px;
 }
 
+.projects-magazine {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.magazine-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 40px 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.magazine-header h1 {
+  font-size: 3em;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.magazine-subtitle {
+  font-size: 1.2em;
+  color: #b8b8b8;
+  font-style: italic;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.section-title {
+  font-size: 2em;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 40px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.featured-section {
+  margin-bottom: 80px;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.featured-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.featured-1 {
+  grid-column: span 2;
+}
+
+.featured-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 1;
+}
+
+.featured-1 .card-image-wrapper {
+  aspect-ratio: 2.5 / 1;
+}
+
+.card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card-link:hover .card-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.card-link:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.card-stats .stat {
+  color: #fff;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.card-stats i {
+  color: #ffd700;
+}
+
+.card-content {
+  padding: 25px;
+}
+
+.featured-1 .card-content {
+  padding: 30px;
+}
+
+.card-content h3 {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin: 0 0 15px 0;
+  color: #fff;
+}
+
+.featured-1 .card-content h3 {
+  font-size: 2em;
+}
+
+.card-description {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #c0c0c0;
+  margin-bottom: 15px;
+  min-height: 45px;
+}
+
+.featured-1 .card-description {
+  font-size: 1.1em;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.85em;
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.2s ease;
+}
+
+.card-link:hover .tag {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.regular-section {
+  margin-bottom: 60px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.project-card-magazine {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card-magazine:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.08);
+}
+
+.project-card-magazine .card-image-wrapper {
+  aspect-ratio: 2 / 1;
+}
+
+.project-card-magazine .card-content {
+  padding: 20px;
+}
+
+.project-card-magazine .card-content h3 {
+  font-size: 1.3em;
+}
+
+.projects-loading,
+.no-projects {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 1.2em;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .magazine-header h1 {
+    font-size: 2em;
+  }
+
+  .magazine-subtitle {
+    font-size: 1em;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-1 {
+    grid-column: span 1;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.5em;
+  }
+}
+
 .home-links {
   display: flex;
   justify-content: center;

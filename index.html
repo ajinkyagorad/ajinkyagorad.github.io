@@ -41,6 +41,8 @@
 
       function ProjectsPage() {
         const [repos, setRepos] = React.useState([]);
+        const [loading, setLoading] = React.useState(true);
+        
         React.useEffect(() => {
           fetch('https://api.github.com/users/ajinkyagorad/repos')
             .then(r => r.json())
@@ -58,27 +60,122 @@
                   return repo;
                 })
               );
-              setRepos(detailed);
+              // Sort by stars and updated date
+              const sorted = detailed.sort((a, b) => {
+                const starsA = a.stargazers_count || 0;
+                const starsB = b.stargazers_count || 0;
+                if (starsB !== starsA) return starsB - starsA;
+                return new Date(b.updated_at) - new Date(a.updated_at);
+              });
+              setRepos(sorted);
+              setLoading(false);
             })
-            .catch(() => {});
+            .catch(() => setLoading(false));
         }, []);
 
+        if (loading) {
+          return <div className="projects-loading">Loading projects...</div>;
+        }
+
+        const featured = repos.slice(0, 3);
+        const regular = repos.slice(3);
+
         return (
-          <div className="projects">
-            {repos.map(repo => (
-              <div className="project-card" key={repo.id}>
-                <img src={repo.image} alt={repo.name} />
-                <h3>
-                  <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-                    {repo.name}
-                  </a>
-                </h3>
-                <p>{repo.description}</p>
-                {repo.languages && (
-                  <p className="languages">Languages: {repo.languages}</p>
-                )}
+          <div className="projects-magazine">
+            <div className="magazine-header">
+              <h1>Project Portfolio</h1>
+              <p className="magazine-subtitle">A curated collection of software, robotics, and mechanical engineering projects</p>
+            </div>
+
+            {featured.length > 0 && (
+              <div className="featured-section">
+                <h2 className="section-title">Featured Projects</h2>
+                <div className="featured-grid">
+                  {featured.map((repo, idx) => (
+                    <article className={`featured-card featured-${idx + 1}`} key={repo.id}>
+                      <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="card-link">
+                        <div className="card-image-wrapper">
+                          <img src={repo.image} alt={repo.name} />
+                          <div className="card-overlay">
+                            <div className="card-stats">
+                              {repo.stargazers_count > 0 && (
+                                <span className="stat">
+                                  <i className="fas fa-star"></i> {repo.stargazers_count}
+                                </span>
+                              )}
+                              {repo.forks_count > 0 && (
+                                <span className="stat">
+                                  <i className="fas fa-code-branch"></i> {repo.forks_count}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="card-content">
+                          <h3>{repo.name}</h3>
+                          <p className="card-description">{repo.description || 'No description available'}</p>
+                          {repo.languages && (
+                            <div className="card-tags">
+                              {repo.languages.split(', ').slice(0, 3).map(lang => (
+                                <span className="tag" key={lang}>{lang}</span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </a>
+                    </article>
+                  ))}
+                </div>
               </div>
-            ))}
+            )}
+
+            {regular.length > 0 && (
+              <div className="regular-section">
+                <h2 className="section-title">All Projects</h2>
+                <div className="projects-grid">
+                  {regular.map(repo => (
+                    <article className="project-card-magazine" key={repo.id}>
+                      <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="card-link">
+                        <div className="card-image-wrapper">
+                          <img src={repo.image} alt={repo.name} />
+                          <div className="card-overlay">
+                            <div className="card-stats">
+                              {repo.stargazers_count > 0 && (
+                                <span className="stat">
+                                  <i className="fas fa-star"></i> {repo.stargazers_count}
+                                </span>
+                              )}
+                              {repo.forks_count > 0 && (
+                                <span className="stat">
+                                  <i className="fas fa-code-branch"></i> {repo.forks_count}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="card-content">
+                          <h3>{repo.name}</h3>
+                          <p className="card-description">{repo.description || 'No description available'}</p>
+                          {repo.languages && (
+                            <div className="card-tags">
+                              {repo.languages.split(', ').slice(0, 2).map(lang => (
+                                <span className="tag" key={lang}>{lang}</span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </a>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {repos.length === 0 && !loading && (
+              <div className="no-projects">
+                <p>No projects found.</p>
+              </div>
+            )}
           </div>
         );
       }
