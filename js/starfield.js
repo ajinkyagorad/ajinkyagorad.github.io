@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.startStarfield = startStarfield;
-function startStarfield(canvas) {
+export function startStarfield(canvas) {
     var ctx = canvas.getContext('2d');
     if (!ctx)
         return;

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ajinkya Gorad - Mechanical designs, software and robotics projects">
   <title>Ajinkya Gorad</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-x" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -41,12 +44,19 @@
 
       function ProjectsPage() {
         const [repos, setRepos] = React.useState([]);
+        const [loading, setLoading] = React.useState(true);
+        const [error, setError] = React.useState(null);
+        
         React.useEffect(() => {
-          fetch('https://api.github.com/users/ajinkyagorad/repos')
-            .then(r => r.json())
+          fetch('https://api.github.com/users/ajinkyagorad/repos?sort=updated&per_page=100')
+            .then(r => {
+              if (!r.ok) throw new Error('Failed to fetch repositories');
+              return r.json();
+            })
             .then(async repos => {
+              const filtered = repos.filter(r => !r.fork && !r.archived);
               const detailed = await Promise.all(
-                repos.map(async repo => {
+                filtered.map(async repo => {
                   try {
                     const langResp = await fetch(repo.languages_url);
                     const langData = await langResp.json();
@@ -59,26 +69,71 @@
                 })
               );
               setRepos(detailed);
+              setLoading(false);
             })
-            .catch(() => {});
+            .catch(err => {
+              setError(err.message);
+              setLoading(false);
+            });
         }, []);
 
+        if (loading) {
+          return (
+            <div className="projects-container">
+              <h1>Projects</h1>
+              <div className="loading">Loading repositories...</div>
+            </div>
+          );
+        }
+
+        if (error) {
+          return (
+            <div className="projects-container">
+              <h1>Projects</h1>
+              <div className="error">Error loading repositories. Please try again later.</div>
+            </div>
+          );
+        }
+
         return (
-          <div className="projects">
-            {repos.map(repo => (
-              <div className="project-card" key={repo.id}>
-                <img src={repo.image} alt={repo.name} />
-                <h3>
-                  <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-                    {repo.name}
-                  </a>
-                </h3>
-                <p>{repo.description}</p>
-                {repo.languages && (
-                  <p className="languages">Languages: {repo.languages}</p>
-                )}
-              </div>
-            ))}
+          <div className="projects-container">
+            <h1>Projects</h1>
+            <p className="projects-subtitle">Explore my GitHub repositories showcasing various projects in software, robotics, and mechanical design.</p>
+            <div className="projects-stats">
+              <span><i className="fas fa-code-branch"></i> {repos.length} Repositories</span>
+              <span><i className="fas fa-star"></i> {repos.reduce((acc, r) => acc + r.stargazers_count, 0)} Total Stars</span>
+            </div>
+            <div className="projects">
+              {repos.map(repo => (
+                <div className="project-card" key={repo.id}>
+                  <img src={repo.image} alt={repo.name} loading="lazy" />
+                  <div className="project-content">
+                    <h3>
+                      <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+                        {repo.name}
+                      </a>
+                    </h3>
+                    <p>{repo.description || 'No description available'}</p>
+                    <div className="project-meta">
+                      {repo.languages && (
+                        <span className="languages"><i className="fas fa-code"></i> {repo.languages}</span>
+                      )}
+                      {repo.stargazers_count > 0 && (
+                        <span className="stars"><i className="fas fa-star"></i> {repo.stargazers_count}</span>
+                      )}
+                      {repo.forks_count > 0 && (
+                        <span className="forks"><i className="fas fa-code-branch"></i> {repo.forks_count}</span>
+                      )}
+                    </div>
+                    {repo.homepage && (
+                      <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="homepage-link">
+                        <i className="fas fa-external-link-alt"></i> Live Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         );
       }

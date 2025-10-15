@@ -1,7 +1,36 @@
 # ajinkyagorad.github.io
-## Development Repository for my git page ( to do )
 
+Personal portfolio website showcasing projects in software development, robotics, and mechanical design.
 
-PS. adding emojis to github is as easy as clicking [here](http://www.emoji-cheat-sheet.com/)
+## Features
 
- Visit webpage [here] (http://ajinkyagorad.github.io/blog/)
+- Modern, responsive design with animated background
+- Dynamic GitHub repository showcase
+- Blog integration
+- Contact information and social links
+
+## Tech Stack
+
+- React (via CDN)
+- p5.js for animations
+- GitHub Pages
+- Jekyll for blog posts
+
+## Local Development
+
+To run locally:
+
+```bash
+python3 -m http.server 8080
+```
+
+Then visit http://localhost:8080
+
+## Links
+
+- Live Website: https://ajinkyagorad.github.io
+- Blog: https://ajinkyagorad.github.io/blog/
+
+## License
+
+© 2025 Ajinkya Gorad. All rights reserved.
