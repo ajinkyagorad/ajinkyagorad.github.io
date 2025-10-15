@@ -17,24 +17,54 @@
     <script type="text/babel">
       function BlogPage() {
         const [posts, setPosts] = React.useState([]);
+        const [loading, setLoading] = React.useState(true);
+        
         React.useEffect(() => {
           fetch('blog/posts.json')
             .then(r => r.json())
-            .then(setPosts)
-            .catch(() => {});
+            .then(data => {
+              setPosts(data);
+              setLoading(false);
+            })
+            .catch(() => setLoading(false));
         }, []);
+
+        if (loading) {
+          return <div className="blog-loading">Loading posts...</div>;
+        }
+
         return (
-          <div className="blog">
-            <h1>Blog</h1>
-            <div className="blog-list">
-              {posts.map(post => (
-                <div className="post-item" key={post.url}>
-                  <h3><a href={post.url}>{post.title}</a></h3>
-                  <small>{post.date}</small>
-                  <p>{post.excerpt}</p>
-                </div>
+          <div className="blog-magazine">
+            <div className="magazine-header">
+              <h1>Blog & Writings</h1>
+              <p className="magazine-subtitle">Thoughts on engineering, design, and technology</p>
+            </div>
+            <div className="blog-grid">
+              {posts.map((post, idx) => (
+                <article className={`blog-card ${idx === 0 ? 'blog-featured' : ''}`} key={post.url}>
+                  <a href={post.url} className="card-link">
+                    <div className="blog-card-content">
+                      <div className="blog-meta">
+                        <time className="blog-date">{post.date}</time>
+                        <span className="blog-category">
+                          <i className="fas fa-bookmark"></i> Article
+                        </span>
+                      </div>
+                      <h3>{post.title}</h3>
+                      <p className="blog-excerpt">{post.excerpt}</p>
+                      <div className="read-more">
+                        Read More <i className="fas fa-arrow-right"></i>
+                      </div>
+                    </div>
+                  </a>
+                </article>
               ))}
             </div>
+            {posts.length === 0 && !loading && (
+              <div className="no-posts">
+                <p>No blog posts found.</p>
+              </div>
+            )}
           </div>
         );
       }
@@ -182,29 +212,116 @@
 
       const pages = {
         home: () => (
-          <div className="home">
-            <h1>Welcome to Ajinkya Gorad's Universe</h1>
-            <p>Explore mechanical designs, software and robotics projects from my GitHub portfolio.</p>
-            <div className="home-links">
-              <a href="https://github.com/ajinkyagorad" target="_blank" rel="noopener">
-                <i className="fab fa-github"></i> GitHub
-              </a>
-              <a href="https://grabcad.com/triton7777-1" target="_blank" rel="noopener">
-                <i className="fas fa-cube"></i> GrabCAD
-              </a>
-              <a href="https://triton7777.wordpress.com/" target="_blank" rel="noopener">
-                <i className="fas fa-pen-nib"></i> Blog
-              </a>
+          <div className="home-hero">
+            <div className="hero-content">
+              <div className="hero-badge">
+                <i className="fas fa-rocket"></i> Engineer & Creator
+              </div>
+              <h1 className="hero-title">Ajinkya Gorad</h1>
+              <p className="hero-subtitle">Mechanical Engineering • Software Development • Robotics</p>
+              <p className="hero-description">
+                Crafting innovative solutions at the intersection of hardware and software. 
+                Passionate about building intelligent systems that push the boundaries of what's possible.
+              </p>
+              <div className="hero-stats">
+                <div className="stat-item">
+                  <div className="stat-number">
+                    <i className="fas fa-code"></i>
+                  </div>
+                  <div className="stat-label">Open Source</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-number">
+                    <i className="fas fa-cogs"></i>
+                  </div>
+                  <div className="stat-label">Engineering</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-number">
+                    <i className="fas fa-robot"></i>
+                  </div>
+                  <div className="stat-label">Robotics</div>
+                </div>
+              </div>
+              <div className="hero-cta">
+                <a href="https://github.com/ajinkyagorad" target="_blank" rel="noopener" className="cta-primary">
+                  <i className="fab fa-github"></i> View GitHub
+                </a>
+                <a href="https://grabcad.com/triton7777-1" target="_blank" rel="noopener" className="cta-secondary">
+                  <i className="fas fa-cube"></i> GrabCAD
+                </a>
+              </div>
+              <div className="hero-links">
+                <a href="https://triton7777.wordpress.com/" target="_blank" rel="noopener" className="hero-link">
+                  <i className="fas fa-pen-nib"></i> WordPress Blog
+                </a>
+              </div>
+            </div>
+            <div className="hero-decoration">
+              <div className="decoration-circle decoration-1"></div>
+              <div className="decoration-circle decoration-2"></div>
+              <div className="decoration-circle decoration-3"></div>
             </div>
           </div>
         ),
         about: () => (
-          <div className="about">
-            <h1>About</h1>
-            <p>To post stuff that people might care about.</p>
-            <ul className="contacts">
-              <li><a href="https://twitter.com/AjinkyaGorad">Twitter</a></li>
-            </ul>
+          <div className="about-elegant">
+            <div className="magazine-header">
+              <h1>About Me</h1>
+              <p className="magazine-subtitle">Engineer, Builder, Problem Solver</p>
+            </div>
+            <div className="about-content">
+              <div className="about-intro">
+                <p className="about-lead">
+                  Hello! I'm Ajinkya Gorad, a passionate engineer with a deep love for creating things 
+                  that matter. My work spans across mechanical engineering, software development, and robotics.
+                </p>
+              </div>
+              <div className="about-grid">
+                <div className="about-card">
+                  <div className="about-icon">
+                    <i className="fas fa-drafting-compass"></i>
+                  </div>
+                  <h3>Mechanical Engineering</h3>
+                  <p>Designing innovative mechanical systems and CAD models. Bringing ideas from concept to reality through precision engineering.</p>
+                </div>
+                <div className="about-card">
+                  <div className="about-icon">
+                    <i className="fas fa-code"></i>
+                  </div>
+                  <h3>Software Development</h3>
+                  <p>Building robust applications and tools. Passionate about clean code, elegant solutions, and open source contributions.</p>
+                </div>
+                <div className="about-card">
+                  <div className="about-icon">
+                    <i className="fas fa-microchip"></i>
+                  </div>
+                  <h3>Robotics & Electronics</h3>
+                  <p>Creating intelligent systems that bridge the physical and digital worlds. From embedded systems to autonomous solutions.</p>
+                </div>
+              </div>
+              <div className="about-philosophy">
+                <h3>Philosophy</h3>
+                <p>
+                  I believe in sharing knowledge and contributing to the community. My projects reflect 
+                  a commitment to innovation, quality, and the pursuit of excellence in everything I create.
+                </p>
+              </div>
+              <div className="about-connect">
+                <h3>Let's Connect</h3>
+                <div className="connect-links">
+                  <a href="https://twitter.com/AjinkyaGorad" target="_blank" rel="noopener" className="connect-btn">
+                    <i className="fab fa-twitter"></i> Twitter
+                  </a>
+                  <a href="https://github.com/ajinkyagorad" target="_blank" rel="noopener" className="connect-btn">
+                    <i className="fab fa-github"></i> GitHub
+                  </a>
+                  <a href="https://www.linkedin.com/in/ajinkyagorad" target="_blank" rel="noopener" className="connect-btn">
+                    <i className="fab fa-linkedin"></i> LinkedIn
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         ),
         blog: BlogPage,
